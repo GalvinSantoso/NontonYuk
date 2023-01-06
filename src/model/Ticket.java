@@ -4,7 +4,7 @@ public class Ticket {
 	
 	private String ticketID;
 	private String movieID;
-	private String cinemaID;
+	private String cinemaName;
 	private String passKey;
 	private String seatPosition;
 	private String ticketDate;
@@ -12,12 +12,12 @@ public class Ticket {
 	private String ticketType;
 	
 	
-	public Ticket(String ticketID, String movieID, String cinemaID, String passKey, String seatPosition,
+	public Ticket(String ticketID, String movieID, String cinemaName, String passKey, String seatPosition,
 			String ticketDate, String ticketPrice, String ticketType) {
 		super();
 		this.ticketID = ticketID;
 		this.movieID = movieID;
-		this.cinemaID = cinemaID;
+		this.cinemaName = cinemaName;
 		this.passKey = passKey;
 		this.seatPosition = seatPosition;
 		this.ticketDate = ticketDate;
@@ -36,11 +36,11 @@ public class Ticket {
 	public void setMovieID(String movieID) {
 		this.movieID = movieID;
 	}
-	public String getCinemaID() {
-		return cinemaID;
+	public String getCinemaName() {
+		return cinemaName;
 	}
-	public void setCinemaID(String cinemaID) {
-		this.cinemaID = cinemaID;
+	public void setCinemaName(String cinemaName) {
+		this.cinemaName = cinemaName;
 	}
 	public String getPassKey() {
 		return passKey;
