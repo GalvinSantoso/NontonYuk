@@ -1,5 +1,7 @@
 package Builder;
 
+import java.util.Date;
+
 import model.Movie;
 
 public interface MovieInterface {
@@ -10,7 +12,7 @@ public interface MovieInterface {
 	    public MovieInterface buildDuration(String duration);
 	    public MovieInterface buildGenre(String genre);
 	    public MovieInterface buildDescription(String description);
-	    public MovieInterface buildReleaseDate(String releaseDate);
+	    public MovieInterface buildReleaseDate(Date releaseDate);
 	    public MovieInterface buildActorsName(String actorsName);
 	    public Movie build();
 

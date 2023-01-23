@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Movie {
 	
@@ -9,21 +9,11 @@ public class Movie {
 	private String duration;
 	private String genre;
 	private String description;
-	private String releaseDate;
+	private Date releaseDate;
 	private String actorsName;
 	
 	
-//	public Movie(String movieID, String movieName, String duration, String genre, String description, String releaseDate,
-//			String actorsName) {
-//		super();
-//		this.movieID = movieID;
-//		this.movieName = movieName;
-//		this.duration = duration;
-//		this.genre = genre;
-//		this.description = description;
-//		this.releaseDate = releaseDate;
-//		this.actorsName = actorsName;
-//	}
+
 	
 	public Movie() {
 		
@@ -59,10 +49,10 @@ public class Movie {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getReleaseDate() {
+	public Date getReleaseDate() {
 		return releaseDate;
 	}
-	public void setReleaseDate(String releaseDate) {
+	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 	public String getActorsName() {

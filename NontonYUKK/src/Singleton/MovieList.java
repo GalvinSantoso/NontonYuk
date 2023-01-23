@@ -1,5 +1,6 @@
 package Singleton;
 
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 
@@ -28,7 +29,8 @@ public class MovieList {
 	  
 
 	  
-	  public void show() {
+	  public void show(SimpleDateFormat dateFormat) {
+		  System.out.println("");
 		  System.out.println("===============================================================");
 		  System.out.println("Movie List                                                     ");
 		  System.out.println("===============================================================");
@@ -39,13 +41,14 @@ public class MovieList {
 				for(Movie movie : movieVector) {
 					System.out.println("|id: " + movie.getMovieID());
 					System.out.println("|judul: " +  movie.getMovieName());
-					System.out.println("|tanggal: " + movie.getReleaseDate());
+					System.out.println("|tanggal: " + dateFormat.format(movie.getReleaseDate()));
 					System.out.println("|durasi: " + movie.getDuration());
 					System.out.println("|genre: " + movie.getGenre());
 					System.out.println("|descripton: " +  movie.getDescription());
 					System.out.println("|actors: " +  movie.getActorsName());
 					System.out.println("+===============================================================+");
 				}
+				  System.out.println("");
 		  }
 
 		}

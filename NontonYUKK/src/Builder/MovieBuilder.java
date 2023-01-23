@@ -1,6 +1,6 @@
 package Builder;
 
-import java.sql.Date;
+import java.util.Date;
 
 import model.Movie;
 
@@ -45,7 +45,7 @@ public class MovieBuilder implements MovieInterface {
 	}
 
 	@Override
-	public MovieInterface buildReleaseDate(String releaseDate) {
+	public MovieInterface buildReleaseDate(Date releaseDate) {
 		movie.setReleaseDate(releaseDate);
 		return this;
 	}

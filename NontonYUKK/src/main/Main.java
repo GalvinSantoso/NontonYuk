@@ -1,6 +1,6 @@
 package main;
 
-import java.sql.Date;
+import java.util.Date;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,13 +22,12 @@ import model.User;
 
 public class Main {
 	Scanner scan = new Scanner(System.in);
-	SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 	GeneratorFacade MF = new GeneratorFacade();
-	int countMovieID = 0;
+	int countMovieID = 0; 
 	int countTicketID = 0;
 	int countUserID = 0;
 	int countAdminID = 0;
-
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 
 	public void menuUtama() {
@@ -47,7 +46,7 @@ public class Main {
 		int chooseMenu = 0;
 		while (true) {
 			MovieList list = MovieList.getInstance();
-			list.show();
+			list.show(dateFormat);
 			System.out.println("");
 			System.out.println("User Menu");
 			System.out.println("==========");
@@ -79,8 +78,8 @@ public class Main {
 		TicketFactory ticketfactory = new TicketFactory();
 		String ticketID, cinemaName = null, passKey, seatPosition = null, ticketDate = null, ticketType = null, chooseTicket;
 		Integer seatQuantity, ticketPrice = 40000;
-		
-		String dateFormat = "yyyy-MM-dd";
+		Date date = null;
+
 		
 		System.out.print("Choose Your Ticket by MovieID : ");
 		chooseTicket = scan.nextLine();
@@ -100,11 +99,17 @@ public class Main {
 					System.out.print("input Seat Position [A-Z][1-10] : ");
 					seatPosition = scan.nextLine();
 				} while (seatPosition.length() < 1 || seatPosition.length() > 100);
+				boolean condition = true;
 				do {
-					System.out.print("input Ticket Date [Format: dd-mm-yy]: ");
+					System.out.print("Movie Release Date [Format : yyyy-MM-dd] : ");
 					ticketDate = scan.nextLine();
-					
-				} while (ticketDate.length() < 1 || ticketDate.length() > 100 || ticketDate.contains("-"));
+					try {
+						date = dateFormat.parse(ticketDate);
+						condition = false;
+					} catch (ParseException e) {
+						condition = true;
+					}
+				} while (condition);
 				
 				System.out.println("===== Ticket Type Description =====");
 				System.out.println("Standard : No Benefits");
@@ -132,7 +137,7 @@ public class Main {
 				confirmorder = scan.nextLine();
 				if (confirmorder.equals("Y")) {
 					history.add(ticketfactory.makeTicket(ticketID, chooseTicket, cinemaName, passKey, seatQuantity,
-							seatPosition, ticketDate, ticketPrice, ticketType));
+							seatPosition, date, ticketPrice, ticketType));
 				} else if (confirmorder.equals("N")) {
 					return;
 				}
@@ -143,7 +148,7 @@ public class Main {
 
 	public void viewTicket() {
 		TicketHistory history = TicketHistory.getInstance();
-		history.show();
+		history.show(dateFormat);
 		scan.nextLine();
 	}
 
@@ -166,9 +171,9 @@ public class Main {
 			userAddress = scan.nextLine();
 		} while ((userAddress.length() < 6) || (userAddress.length() > 20));
 		do {
-			System.out.print("input your email address [contain @ & .]: ");
+			System.out.print("input your email address [contain @ and ends with .com]: ");
 			userEmail = scan.nextLine();
-		} while (!(userEmail.contains("@") && userEmail.contains(".")));
+		} while (!(userEmail.contains("@") && userEmail.endsWith(".com")));
 		do {
 			System.out.print("input phone [must start with 08] : ");
 			userPhone = scan.nextLine();
@@ -194,11 +199,10 @@ public class Main {
 
 		User admin = loginUser("Admin");
 		System.out.println("Welcome Admin " + admin.getUsername() + " !!!!");
-		System.out.println();
 		int chooseMenu = 0;
 		while (true) {
 			MovieList list = MovieList.getInstance();
-			list.show();
+			list.show(dateFormat);
 			System.out.println();
 			System.out.println("Admin Menu");
 			System.out.println("==========");
@@ -238,47 +242,48 @@ public class Main {
 		String genre;
 		String description;
 		String releaseDate;
+		Date date = null;
 		String actorsName;
 		MovieList list = MovieList.getInstance();
-
 		System.out.println();
 		System.out.println("------Add New Movie------");
 		System.out.println("==========================");
 		do {
-			System.out.println("Enter Movie Name [Must be around 1 - 100 characters] : ");
+			System.out.print("Enter Movie Name [Must be around 1 - 100 characters] : ");
 			movieName = scan.nextLine();
 		} while (movieName.length() < 1 && movieName.length() > 100);
 
 		do {
-			System.out.println("Duration of the Movie [60 | 120 | 180 | Minutes] : ");
+			System.out.print("Duration of the Movie [60 | 120 | 180 | Minutes] : ");
 			duration = scan.nextLine();
 		} while (!(duration.equals("60") || duration.equals("120") || duration.equals("180")));
 
 		do {
-			System.out.println("Movie Genre [Horror | Fiction | Fantasy | Drama | Action]: : ");
+			System.out.print("Movie Genre [Horror | Fiction | Fantasy | Drama | Action]: : ");
 			genre = scan.nextLine();
 		} while (!(genre.equals("Horror") || genre.equals("Fiction") || genre.equals("Fantasy") || genre.equals("Drama")
 				|| genre.equals("Action")));
 
 		do {
-			System.out.println("Movie Description [Must be around 1 - 100 characters] : ");
+			System.out.print("Movie Description [Must be around 1 - 100 characters] : ");
 			description = scan.nextLine();
 		} while ((description.length() < 1) && (description.length() > 100));
 
+		boolean condition = true;
 		do {
-			System.out.println("Movie Release Date [Format : dd-mm-yy] : ");
+			System.out.print("Movie Release Date [Format : yyyy-MM-dd] : ");
 			releaseDate = scan.nextLine();
 			try {
-				format.parse(releaseDate);
+				date = dateFormat.parse(releaseDate);
+				condition = false;
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
-//				e.printStackTrace();
-				System.out.println("Wrong format");
-			} 
-		} while (releaseDate.length() < 1 && releaseDate.length() > 100 || releaseDate.contains("-"));
+				condition = true;
+			}
+		} while (condition);
 		
 		do {
-			System.out.println("Movie Actors Name [Must be around 1 - 100 characters] : ");
+			System.out.print("Movie Actors Name [Must be around 1 - 100 characters] : ");
 			actorsName = scan.nextLine();
 		} while ((actorsName.length() < 1) && (actorsName.length() > 100));
 
@@ -286,7 +291,7 @@ public class Main {
 
 		MovieBuilder builder = new MovieBuilder();
 		Movie movie = builder.reset().buildMovieID(id).buildMovieName(movieName).buildDuration(duration)
-				.buildGenre(genre).buildDescription(description).buildReleaseDate(releaseDate)
+				.buildGenre(genre).buildDescription(description).buildReleaseDate(date)
 				.buildActorsName(actorsName).build();
 		list.add(movie);
 	}
@@ -314,6 +319,7 @@ public class Main {
 		String releaseDate;
 		String actorsName;
 		int number = 0;
+		Date date = null;
 		MovieList list = MovieList.getInstance();
 
 		System.out.println("------Edit Movie------");
@@ -344,10 +350,17 @@ public class Main {
 			description = scan.nextLine();
 		} while ((description.length() < 1) && (description.length() > 100));
 
+		boolean condition = true;
 		do {
-			System.out.println("Movie Release Date [Format : dd-mm-yy] : ");
+			System.out.print("Movie Release Date [Format : yyyy-MM-dd] : ");
 			releaseDate = scan.nextLine();
-		} while (releaseDate.length() < 1 && releaseDate.length() > 100 || releaseDate.contains("-"));
+			try {
+				date = dateFormat.parse(releaseDate);
+				condition = false;
+			} catch (ParseException e) {
+				condition = true;
+			}
+		} while (condition);
 
 		do {
 			System.out.print("Movie Actors Name [Must be around 1 - 100 characters] : ");
@@ -358,7 +371,7 @@ public class Main {
 		list.getMovieVector().get(number - 1).setDuration(duration);
 		list.getMovieVector().get(number - 1).setGenre(genre);
 		list.getMovieVector().get(number - 1).setDescription(description);
-		list.getMovieVector().get(number - 1).setReleaseDate(releaseDate);
+		list.getMovieVector().get(number - 1).setReleaseDate(date);
 		list.getMovieVector().get(number - 1).setActorsName(actorsName);
 
 	}

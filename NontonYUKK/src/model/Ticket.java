@@ -1,5 +1,5 @@
 package model;
-
+import java.util.Date;
 public class Ticket {
 	
 	private String ticketID;
@@ -8,13 +8,13 @@ public class Ticket {
 	private String passKey;
 	private Integer seatQuantity;
 	private String seatPosition;
-	private String ticketDate;
+	private Date ticketDate;
 	private Integer ticketPrice;
 	private String ticketType;
 	private String benefits;
 	
 	public Ticket(String ticketID, String movieID, String cinemaName, String passKey, Integer seatQuantity,
-			String seatPosition, String ticketDate, Integer ticketPrice, String ticketType) {
+			String seatPosition, Date ticketDate, Integer ticketPrice, String ticketType) {
 		super();
 		this.ticketID = ticketID;
 		this.movieID = movieID;
@@ -89,11 +89,11 @@ public class Ticket {
 		this.seatPosition = seatPosition;
 	}
 
-	public String getTicketDate() {
+	public Date getTicketDate() {
 		return ticketDate;
 	}
 
-	public void setTicketDate(String ticketDate) {
+	public void setTicketDate(Date ticketDate) {
 		this.ticketDate = ticketDate;
 	}
 

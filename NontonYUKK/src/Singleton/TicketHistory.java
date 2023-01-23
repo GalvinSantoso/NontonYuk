@@ -1,5 +1,6 @@
 package Singleton;
 
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 import model.Movie;
@@ -25,7 +26,8 @@ public class TicketHistory {
 	}
 	
 	  
-	  public void show() {
+	  public void show(SimpleDateFormat dateFormat) {
+		  System.out.println("");
 		  System.out.println("===============================================================");
 		  System.out.println("Ticket List                                                     ");
 		  System.out.println("===============================================================");
@@ -40,12 +42,13 @@ public class TicketHistory {
 					System.out.println("Cinema Name: " + ticket.getCinemaName());
 					System.out.println("Pass Key: " + ticket.getPassKey());
 					System.out.println("Seat Position: " + ticket.getSeatPosition());
-					System.out.println("Ticket Date: " + ticket.getTicketDate());
+					System.out.println("Ticket Date: " + dateFormat.format(ticket.getTicketDate()));
 					System.out.println("Ticket Price: " + ticket.getTicketPrice());
 					System.out.println("Ticket Type: " + ticket.getTicketType());
 					System.out.println("Ticket Benefit: " + ticket.getBenefits());
 					System.out.println("+===============================================================+");
 				}
+				  System.out.println("");
 		  }
 	
 		}
